@@ -1,0 +1,11 @@
+root = true
+
+[*]
+indent_style = tab
+insert_final_newline = true
+
+[*.cs]
+indent_size = 4
+
+# IDE0090: Use 'new(...)'
+dotnet_diagnostic.IDE0090.severity = none
