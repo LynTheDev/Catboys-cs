@@ -1,62 +1,59 @@
 ﻿namespace Catboys;
 
 /// <summary>
-/// Class for the main API
+/// Main class for the catboys API wrapper.
 /// </summary>
 public class CatboysAPI
 {
+	private static Client client = new Client();
+
+	private static async Task<CatboyResponse> getGenericResponse(string endpoint)
+	{
+		Dictionary<string, string> httpResult = await client.GetEndpoint(endpoint);
+
+		return new CatboyResponse { Response = httpResult["response"], URL = httpResult["url"] };
+	}
+
 	/// <summary>
-	///		Calls the /img API endpoint.
+	///	Retrieves an image of a catboy.
 	/// </summary>
-	/// <param name="getAll">
-	///		When set to true, result includes all the fields from the HTTP response.
-	/// </param>
-	/// <returns>Dictionary composed of the URL and artist</returns>
 	/// <remarks>
-	///		Returns the entire HTTP response if getAll is set to true. Use the <see href="https://catboys.com/api">API</see> for reference.
+	///	See the <see href="https://catboys.com/api">API</see> for reference.
 	/// </remarks>
-	public static async Task<Dictionary<string, string>> Img(bool getAll=false)
+	public static async Task<CatboyImage> GetImage()
     {
-        Dictionary<string, string> httpResult = await Http.GetEndpoint("/img");
+        Dictionary<string, string> httpResult = await client.GetEndpoint("/img");
 
-        if (getAll)
-            return httpResult;
-
-        // We simplify the dictionary if the user doesn't want all of it
-        return new Dictionary<string, string>()
-        {
-            {"url", httpResult["url"]},
-            {"artist", httpResult["artist"]}
-        };
+		return new CatboyImage { URL = httpResult["url"], Artist = httpResult["artist"], ArtistURL = httpResult["artist_url"], Source = httpResult["source_url"] };
     }
 
 	/// <summary>
-	///		Calls /8ball API endpoint.
+	///	Asks the magic 8 ball for its thoughts.
 	/// </summary>
 	/// <remarks>
-	///		See the <see href="https://catboys.com/api">API</see> for reference
+	///	See the <see href="https://catboys.com/api">API</see> for reference.
 	/// </remarks>
-	/// <returns>Dictionary composed from the HTTP result.</returns>
-	public static async Task<Dictionary<string, string>> EightBall()
-		=> await Http.GetEndpoint("/8ball");
+	public static async Task<CatboyResponse> Ask8Ball() => await getGenericResponse("/8ball");
 
 	/// <summary>
-	///		Calls the /dice API endpoint
+	///	Rolls a dice.
 	/// </summary>
 	/// <remarks>
-	///		See the <see href="https://catboys.com/api">API</see> for reference
+	///		See the <see href="https://catboys.com/api">API</see> for reference.
 	/// </remarks>
-	/// <returns>Dictionary composed from the HTTP result.</returns>
-	public static async Task<Dictionary<string, string>> Dice()
-		=> await Http.GetEndpoint("/dice");
+	public static async Task<CatboyResponse> RollDice() => await getGenericResponse("/dice");
 
 	/// <summary>
-	///		Calls the /baka API endpoint
+	///	Calls someone a Baka.
+	/// Note that the artist URL is always empty.
 	/// </summary>
 	/// <remarks>
-	///		See the <see href="https://catboys.com/api">API</see> for reference
+	///	See the <see href="https://catboys.com/api">API</see> for reference.
 	/// </remarks>
-	/// <returns>Dictionary composed from the HTTP result.</returns>
-	public static async Task<Dictionary<string, string>> Baka()
-		=> await Http.GetEndpoint("/baka");
+	public static async Task<CatboyImage> GetBaka()
+	{
+        Dictionary<string, string> httpResult = await client.GetEndpoint("/baka");
+
+		return new CatboyImage { URL = httpResult["url"], Artist = "unknown", ArtistURL = "none", Source = "none" };
+    }
 }

@@ -19,12 +19,10 @@ dotnet add package CatboysCS
 ```cs
 using Catboys;
 
-var result = CatboysAPI.Img();
-foreach (var item in result)
-    Console.WriteLine($"{item.Key}: {item.Value}");
+CatboyImage image = await CatboysAPI.GetImage();
+Console.WriteLine($"Got \"{image.URL}\" from \"${image.Artist}\".");
 ```
 
-```bash
-url: https://cdn.catboys.com/images/image_184.jpg
-artist: alioathereal
+```
+Got "https://cdn.catboys.com/images/image_184.jpg" from "alioathereal".
 ```
