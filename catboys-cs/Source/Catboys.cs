@@ -45,15 +45,17 @@ public class CatboysAPI
 
 	/// <summary>
 	///	Calls someone a Baka.
-	/// Note that the artist URL is always empty.
 	/// </summary>
+	/// <returns>
+	/// Image url.
+	/// </returns>
 	/// <remarks>
 	///	See the <see href="https://catboys.com/api">API</see> for reference.
 	/// </remarks>
-	public static async Task<CatboyImage> GetBaka()
+	public static async Task<string> GetBaka()
 	{
         Dictionary<string, string> httpResult = await client.GetEndpoint("/baka");
 
-		return new CatboyImage { URL = httpResult["url"], Artist = "unknown", ArtistURL = "none", Source = "none" };
+		return httpResult["url"];
     }
 }
