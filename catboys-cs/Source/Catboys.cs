@@ -1,5 +1,8 @@
 ﻿namespace Catboys;
 
+/// <summary>
+/// Class for the main API
+/// </summary>
 public class CatboysAPI
 {
 	/// <summary>

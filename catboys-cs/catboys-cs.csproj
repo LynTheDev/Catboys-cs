@@ -9,16 +9,23 @@
     <Title>CatboysCS</Title>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>omoNattie</Authors>
-    <Description>A C# package that uses the catboys API.</Description>
+    <Description>A C# package that uses the catboys API. (fanmade)</Description>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/omoNattie/catboys-cs</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PackageIcon>ToshiStuff.png</PackageIcon>
+    <Company />
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\ToshiStuff.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
